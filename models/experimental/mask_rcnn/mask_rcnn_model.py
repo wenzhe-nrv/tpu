@@ -276,7 +276,6 @@ def _model_fn(features, labels, mode, params, variable_filter_fn=None):
   host_call = None
   if mode == tf.estimator.ModeKeys.TRAIN:
     optimizer = create_optimizer(learning_rate, params)
-    optimizer = tf.contrib.tpu.CrossShardOptimizer(optimizer)
 
     if not params['resnet_checkpoint']:
       scaffold_fn = None

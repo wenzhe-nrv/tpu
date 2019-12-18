@@ -138,19 +138,19 @@ def selective_crop_and_resize(features,
   height_dim_offset = max_feature_width
   level_dim_offset = max_feature_height * height_dim_offset
   batch_dim_offset = num_levels * level_dim_offset
-  indices = tf.reshape(
-      tf.tile(tf.reshape(tf.range(batch_size) * batch_dim_offset,
+  indices = tf.cast(tf.reshape(
+      tf.cast(tf.tile(tf.reshape(tf.range(batch_size) * batch_dim_offset,
                          [batch_size, 1, 1, 1]),
-              [1, num_boxes, output_size * 2, output_size * 2]) +
-      tf.tile(tf.reshape(box_levels * level_dim_offset,
+              [1, num_boxes, output_size * 2, output_size * 2]), tf.float32) +
+      tf.cast(tf.tile(tf.reshape(box_levels * level_dim_offset,
                          [batch_size, num_boxes, 1, 1]),
-              [1, 1, output_size * 2, output_size * 2]) +
-      tf.tile(tf.reshape(y_indices * height_dim_offset,
+              [1, 1, output_size * 2, output_size * 2]), tf.float32) +
+      tf.cast(tf.tile(tf.reshape(y_indices * height_dim_offset,
                          [batch_size, num_boxes, output_size * 2, 1]),
-              [1, 1, 1, output_size * 2]) +
-      tf.tile(tf.reshape(x_indices,
+              [1, 1, 1, output_size * 2]), tf.float32) +
+      tf.cast(tf.tile(tf.reshape(x_indices,
                          [batch_size, num_boxes, 1, output_size * 2]),
-              [1, 1, output_size * 2, 1]), [-1])
+              [1, 1, output_size * 2, 1]), tf.float32), [-1]), tf.int32)
 
   features = tf.reshape(features, [-1, num_filters])
   features_per_box = tf.reshape(

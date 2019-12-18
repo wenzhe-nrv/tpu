@@ -295,6 +295,7 @@ def main(argv):
       evaluation_master=FLAGS.eval_master,
       model_dir=FLAGS.model_dir,
       log_step_count_steps=FLAGS.iterations_per_loop,
+      save_checkpoints_steps=FLAGS.iterations_per_loop,
       tpu_config=tpu_config,
   )
 
