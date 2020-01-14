@@ -25,6 +25,7 @@ from absl import flags
 import numpy as np
 import six
 import tensorflow as tf
+import ngraph_bridge
 
 import coco_metric
 import dataloader
